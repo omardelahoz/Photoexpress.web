@@ -1,0 +1,136 @@
+<form autocomplete="off" [formGroup]="searchForm" (ngSubmit)="add()">
+    <div class="card" style="width: 100%;">
+        <div class="card-header">
+            <h1>Adicionar un evento</h1>
+        </div>
+        <div class="card-body">
+           
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Nombre institución</label>
+                    <input type="text" maxlength="80" class="form-control" id="exampleFormControlInput1" formControlName="institutionName">
+                    <div *ngIf="institutionName?.invalid && (institutionName?.dirty || institutionName?.touched)" class="text-danger">           
+                        <small *ngIf="institutionName?.errors?.['required']">
+                            <sup>*</sup>El campo es obligatorio.
+                        </small>
+                        <small *ngIf="institutionName?.errors?.['minlength']">
+                            <sup>*</sup>Debe ingresar 5 carácteres mínimo.
+                        </small>
+                        <small *ngIf="institutionName?.errors?.['maxlength']">
+                            <sup>*</sup>Debe ingresar 80 carácteres máximo.
+                         </small>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Dirección institución</label>
+                    <input type="text" maxlength="80" class="form-control" id="exampleFormControlInput1" formControlName="InstitutionAddress">
+                    <div *ngIf="institutionAddres?.invalid && (institutionAddres?.dirty || institutionAddres?.touched)" class="text-danger">           
+                        <small *ngIf="institutionAddres?.errors?.['required']">
+                            <sup>*</sup>El campo es obligatorio.
+                        </small>
+                        <small *ngIf="institutionAddres?.errors?.['minlength']">
+                            <sup>*</sup>Debe ingresar 5 carácteres mínimo.
+                        </small>
+                        <small *ngIf="institutionAddres?.errors?.['maxlength']">
+                            <sup>*</sup>Debe ingresar 80 carácteres máximo.
+                         </small>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Número de estudiantes</label>
+                    <input type="number" class="form-control" id="exampleFormControlInput1" formControlName="numStudents" (change)="onNumStudentsChange($event)">
+                    <div *ngIf="numStudents?.invalid && (numStudents?.dirty || numStudents?.touched)" class="text-danger">           
+                        <small *ngIf="numStudents?.errors?.['required']">
+                            <sup>*</sup>El campo es obligatorio.
+                        </small>
+                        <small *ngIf="numStudents?.errors?.['min']">
+                            <sup>*</sup>Debe ingresar 1 estudiante mínimo.
+                        </small>
+                        <small *ngIf="numStudents?.errors?.['max']">
+                            <sup>*</sup>Debe ingresar 5000 estudiantes máximo.
+                         </small>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Valor base</label>
+                    <input type="number" class="form-control" id="exampleFormControlInput1" formControlName="baseValue">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Valor adicional</label>
+                    <input type="number" class="form-control" id="exampleFormControlInput1" formControlName="addiotionalValue">
+                </div>            
+                <label for="" class="form-label">Fecha evento</label>
+                <div >
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control" placeholder="Año" aria-label="Año" formControlName="year">
+    
+                        <input type="number" class="form-control" placeholder="Mes" aria-label="Mes" formControlName="month">
+    
+                        <input type="number" class="form-control" placeholder="Día" aria-label="Día" formControlName="day">
+    
+                        <input type="number" class="form-control" placeholder="Hora" aria-label="Hora" formControlName="hour">
+    
+                    </div>
+                    <div *ngIf="year?.invalid && (year?.dirty || year?.touched)" class="text-danger">           
+                        <small *ngIf="year?.errors?.['required']">
+                            <sup>*</sup>El campo año es obligatorio.
+                        </small>
+                    </div>
+                    <div *ngIf="month?.invalid && (month?.dirty || month?.touched)" class="text-danger">           
+                        <small *ngIf="month?.errors?.['required']">
+                            <sup>*</sup>El campo mes es obligatorio.
+                        </small>
+                    </div>
+                    <div *ngIf="day?.invalid && (day?.dirty || day?.touched)" class="text-danger">           
+                        <small *ngIf="day?.errors?.['required']">
+                            <sup>*</sup>El campo día es obligatorio.
+                        </small>
+                    </div>
+                    <div *ngIf="hour?.invalid && (hour?.dirty || hour?.touched)" class="text-danger">           
+                        <small *ngIf="hour?.errors?.['required']">
+                            <sup>*</sup>El campo hora es obligatorio.
+                        </small>
+                    </div>
+    
+                    <div class="invalid-feedback" *ngIf="searchForm.errors?.['dayInvaid']" class="text-danger">
+                        <sup>*</sup>La fecha no es valida
+                    </div>
+                    <div class="invalid-feedback" *ngIf="searchForm.get('month')?.errors?.['min']" class="text-danger">
+                        <sup>*</sup>Debe escribir un valor mayor a 0
+                    </div>
+                    <div class="invalid-feedback" *ngIf="searchForm.get('month')?.errors?.['max']" class="text-danger">
+                        <sup>*</sup>Debe escribir un valor menor o igual a 12
+                    </div>
+                    <div class="invalid-feedback" *ngIf="searchForm.get('day')?.errors?.['max']" class="text-danger">
+                        <sup>*</sup>Debe escribir un valor mayor a 0
+                    </div>
+                    <div class="invalid-feedback" *ngIf="searchForm.get('day')?.errors?.['max']" class="text-danger">
+                        <sup>*</sup>Debe escribir un valor menor o igual a 31
+                    </div>
+                    <div class="invalid-feedback" *ngIf="searchForm.get('year')?.errors?.['min']" class="text-danger">
+                        <sup>*</sup>El año debe ser mayor al año actual
+                    </div>
+                    <div class="invalid-feedback" *ngIf="searchForm.get('year')?.errors?.['max']" class="text-danger">
+                        <sup>*</sup>El año debe tener 4 caracteres
+                    </div>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="toga" (change)="onCheckboxChange($event)">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      ¿Requiere toga?
+                    </label>
+                  </div>
+                  <div class="invalid-feedback" *ngIf="searchForm.get('toga')?.errors?.['noStudents']" class="text-danger">
+                    <sup>*</sup>Debe ingresar el número de estudiantes
+                </div>
+    
+            
+        </div>
+       
+        
+        <div class="card-footer text-muted">
+            <button  type="submit" mat-raised-button color="primary">Crear el evento</button>
+        </div>
+    </div>
+    </form>
+    
+    
