@@ -1,2 +1,3 @@
 # Photoexpress.web
-Prueba
+Se realizó con Angular 16
+
